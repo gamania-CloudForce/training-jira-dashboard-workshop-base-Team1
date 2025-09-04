@@ -32,6 +32,7 @@ import { useDashboard } from "@/hooks/use-dashboard";
 import { SprintBurndownContainer } from "@/components/sprint-burndown-container";
 import { SprintTimeline } from "@/components/sprint-timeline";
 import { TaskRelationships } from "@/components/task-relationships";
+import { FeatureAnalytics } from "@/components/feature-analytics";
 
 export default function JiraDashboard() {
   const [selectedSprint, setSelectedSprint] = useState<string>("All");
@@ -324,6 +325,11 @@ export default function JiraDashboard() {
         {/* Task Relationships Section */}
         <div className="grid gap-4 md:gap-8 lg:grid-cols-1 xl:grid-cols-1">
           <TaskRelationships selectedSprint={selectedSprint} />
+        </div>
+
+        {/* Feature Analytics Section */}
+        <div className="grid gap-4 md:gap-8 lg:grid-cols-1 xl:grid-cols-1">
+          <FeatureAnalytics selectedSprint={selectedSprint} />
         </div>
       </main>
     </div>
