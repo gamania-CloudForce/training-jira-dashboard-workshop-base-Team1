@@ -30,6 +30,8 @@ import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { ChartContainer } from "@/components/ui/chart";
 import { useDashboard } from "@/hooks/use-dashboard";
 import { SprintBurndownContainer } from "@/components/sprint-burndown-container";
+import { SprintTimeline } from "@/components/sprint-timeline";
+import { TaskRelationships } from "@/components/task-relationships";
 
 export default function JiraDashboard() {
   const [selectedSprint, setSelectedSprint] = useState<string>("All");
@@ -220,6 +222,11 @@ export default function JiraDashboard() {
           </Card>
         </div>
 
+        {/* Sprint Timeline Section */}
+        <div className="grid gap-4 md:gap-8 lg:grid-cols-1 xl:grid-cols-1">
+          <SprintTimeline />
+        </div>
+
         <div className="grid gap-4 md:gap-8 lg:grid-cols-1 xl:grid-cols-1">
           <Card>
             <CardHeader>
@@ -229,6 +236,14 @@ export default function JiraDashboard() {
                 {statusDistribution && (
                   <span className="ml-2 text-sm">
                     (Total: {statusDistribution.total_count} issues)
+                  </span>
+                )}
+                {statusDistribution?.last_updated && (
+                  <span className="block text-xs text-muted-foreground mt-1">
+                    最後更新:{" "}
+                    {new Date(statusDistribution.last_updated).toLocaleString(
+                      "zh-TW"
+                    )}
                   </span>
                 )}
               </CardDescription>
@@ -304,6 +319,11 @@ export default function JiraDashboard() {
         {/* Sprint Burndown Section */}
         <div className="grid gap-4 md:gap-8 lg:grid-cols-1 xl:grid-cols-1">
           <SprintBurndownContainer selectedSprint={selectedSprint} />
+        </div>
+
+        {/* Task Relationships Section */}
+        <div className="grid gap-4 md:gap-8 lg:grid-cols-1 xl:grid-cols-1">
+          <TaskRelationships selectedSprint={selectedSprint} />
         </div>
       </main>
     </div>
